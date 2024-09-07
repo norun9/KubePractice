@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-file
+data:
+  data_csv: |
+    name,age,email,password
+    ueno,1,ueno@example.com,jdsfqe183
+    tomoya,2,tomoya@example.com,kl2erf34
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: busybox
+      image: busybox:1.30
+      command:
+        - "sleep"
+        - "3600"
+      volumeMounts:
+        - mountPath: "/datadir"
+          name: config
+          readOnly: true
+  volumes:
+    - name: config
+      configMap:
+        name: test-file

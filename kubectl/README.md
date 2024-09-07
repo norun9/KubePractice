@@ -1,5 +1,8 @@
 ## kubectl
 
+Kubernetesのすべてのkindと、それに対応するapiVersionを確認する
+`kubectl api-resources`
+
 ### Resourceをリスト表示: kubectl get
 
 **kubectl get [TYPE] [NAME] [flags]**
@@ -41,3 +44,37 @@
   - 例: `kubectl get -f pod-test.yaml`
 - 作成したリソースの削除
   - 例: `kubectl delete -f pod-test.yaml`
+
+作成
+```bash
+kubectl create -f pod-test.yaml
+pod/pod-test created
+```
+
+```bash
+kubectl get pod # (またはファイル指定 kubectl get -f pod-test.yaml)                                          
+NAME       READY   STATUS              RESTARTS   AGE
+pod-test   0/1     ContainerCreating   0          13s
+```
+
+削除
+```bash
+kubectl delete -f pod-test.yaml
+pod "pod-test" deleted
+```
+
+**作成できるリソースの確認**
+
+`kubectl create -h`
+
+```bash
+Available Commands:
+  clusterrole           Create a cluster role
+etc...
+```
+
+**--dry-runでyamlファイルのベースを作成**
+
+`kubectl create namespace test-ns --dry-run=client -o yaml`
+
+`kubectl create namespace test-ns --dry-run=client -o yaml > test-ns.yaml`

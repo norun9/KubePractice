@@ -1,0 +1,10 @@
+# --dry-run で作成したベーステンプレート
+# リソースはNamespace
+# 必要に応じてファイルを編集していくことが可能
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: test-ns
+spec: {}
+status: {}

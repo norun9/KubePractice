@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: # ReplicaSetに対するmetadata
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx # Podのmetadataのラベルと同一である必要がある. ReplicaSetが管理しているPodを見つける(selector)ために使用するため(異なるとapplyが失敗する)
+  template:
+    metadata: # Podに対するmetadata
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
