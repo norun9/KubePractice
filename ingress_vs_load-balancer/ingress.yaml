@@ -1,0 +1,31 @@
+#In Kubernetes, an ingress lets us route traffic from outside the cluster to one or more services inside the cluster. Typically, the ingress works as a single point of entry for all incoming traffic.
+#An ingress receives a public IP, meaning it is accessible outside the cluster. Then, using a set of rules, it forwards all of its traffic to an appropriate service. In turn, that service will send the request to a pod that can actually handle the request.
+#There are a few things to keep in mind when creating an ingress. First, they are designed to handle web traffic (HTTP or HTTPS). While it is possible to use an ingress with other types of protocols, it typically requires extra configuration.
+#Second, an ingress can do more than just routing. Some other use cases include load balancing and SSL termination.
+#Most importantly, the ingress object by itself does not actually do anything. So, for an ingress to actually do anything, we need to have an ingress controller available.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+    - http:
+        paths:
+          # enable to apply multiple services by Ingress
+          - path: /api1
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port:
+                  number: 80
+          - path: /api1
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port:
+                  number: 80
